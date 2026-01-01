@@ -30,7 +30,7 @@ typedef enum UnityGfxRenderer
     kUnityGfxRendererPS5               = 26, // PS5
     kUnityGfxRendererPS5NGGC           = 27, // PS5 NGGC
 
-    kUnityGfxRendererReservedCFE       = 29
+    kUnityGfxRendererNvn2              = 29  // Switch2
 } UnityGfxRenderer;
 
 typedef enum UnityGfxDeviceEventType

@@ -13,20 +13,19 @@
 struct RenderSurfaceBase;
 typedef struct RenderSurfaceBase* UnityRenderBuffer;
 
-typedef struct UnityGraphicsD3D12ResourceState UnityGraphicsD3D12ResourceState;
-struct UnityGraphicsD3D12ResourceState
+typedef struct UnityGraphicsD3D12ResourceState
 {
     ID3D12Resource*       resource; // Resource to barrier.
     D3D12_RESOURCE_STATES expected; // Expected resource state before this command list is executed.
     D3D12_RESOURCE_STATES current;  // State this resource will be in after this command list is executed.
-};
+}UnityGraphicsD3D12ResourceState;
 
-struct UnityGraphicsD3D12RecordingState
+typedef struct UnityGraphicsD3D12RecordingState
 {
     ID3D12GraphicsCommandList* commandList;              // D3D12 command list that is currently recorded by Unity
-};
+}UnityGraphicsD3D12RecordingState;
 
-enum UnityD3D12GraphicsQueueAccess
+typedef enum UnityD3D12GraphicsQueueAccess
 {
     // Enables access to CommandRecordingState and disables access to GetCommandQueue. When using this plugin callbacks
     // will be called from the render thread. When accessing the command queue from GetCommandQueue it is hihgly likely
@@ -37,31 +36,30 @@ enum UnityD3D12GraphicsQueueAccess
     // will be called from the submission thread. When accessing the commmand list from CommandRecordingState it is highly
     // likely that the render thread will be accessing it at the same time and it will cause issues.
     kUnityD3D12GraphicsQueueAccess_Allow,
-};
+}UnityD3D12GraphicsQueueAccess;
 
-enum UnityD3D12EventConfigFlagBits
+typedef enum UnityD3D12EventConfigFlagBits
 {
     kUnityD3D12EventConfigFlag_EnsurePreviousFrameSubmission = (1 << 0), // default: (NOT SUPPORTED)
     kUnityD3D12EventConfigFlag_FlushCommandBuffers = (1 << 1),           // submit existing command buffers, default: not set
     kUnityD3D12EventConfigFlag_SyncWorkerThreads = (1 << 2),             // wait for worker threads to finish, default: not set
     kUnityD3D12EventConfigFlag_ModifiesCommandBuffersState = (1 << 3),   // should be set when descriptor set bindings, vertex buffer bindings, etc are changed (default: set)
-};
+}UnityD3D12EventConfigFlagBits;
 
-struct UnityD3D12PluginEventConfig
+typedef struct UnityD3D12PluginEventConfig
 {
     UnityD3D12GraphicsQueueAccess graphicsQueueAccess;
     UINT32 flags;                                           // UnityD3D12EventConfigFlagBits to be used when invoking a native plugin
     bool ensureActiveRenderTextureIsBound;                  // If true, the actively bound render texture will be bound prior the execution of the native plugin method.
-};
+}UnityD3D12PluginEventConfig;
 
-typedef struct UnityGraphicsD3D12PhysicalVideoMemoryControlValues UnityGraphicsD3D12PhysicalVideoMemoryControlValues;
-struct UnityGraphicsD3D12PhysicalVideoMemoryControlValues // all absolute values in bytes
+typedef struct UnityGraphicsD3D12PhysicalVideoMemoryControlValues // all absolute values in bytes
 {
     UINT64 reservation;           // Minimum required physical memory for an application [default = 64MB].
     UINT64 systemMemoryThreshold; // If free physical video memory drops below this threshold, resources will be allocated in system memory. [default = 64MB]
     UINT64 residencyHysteresisThreshold;    // Minimum free physical video memory needed to start bringing evicted resources back after shrunken video memory budget expands again. [default = 128MB]
     float nonEvictableRelativeThreshold;    // The relative proportion of the video memory budget that must be kept available for non-evictable resources. [default = 0.25]
-};
+}UnityGraphicsD3D12PhysicalVideoMemoryControlValues;
 
 // Should only be used on the rendering/submission thread.
 UNITY_DECLARE_INTERFACE(IUnityGraphicsD3D12v8)

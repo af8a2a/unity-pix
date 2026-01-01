@@ -4,19 +4,22 @@
 //
 // Unless expressly provided otherwise, the Software under this license is made available strictly on an “AS IS” BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.Please review the license for details on these and other terms and conditions.
 
+#ifndef __cplusplus
+#error "This file cannot be compiled in a C environment"
+#endif
+
 #pragma once
 
 
 #include "IUnityGraphics.h"
 
+
 /*
     Low-level Native Plugin Shader Compiler Access
     ==============================================
 
-    On top of the Low-level native plugin interface, Unity also supports low level access to the
-   shader compiler, allowing the user to inject different variants into a shader. It is also an
-   event driven approach in which the plugin will receive callbacks when certain builtin events
-   happen.
+    On top of the Low-level native plugin interface, Unity also supports low level access to the shader compiler, allowing the user to inject different variants into a shader.
+    It is also an event driven approach in which the plugin will receive callbacks when certain builtin events happen.
 */
 
 
@@ -49,7 +52,7 @@ enum UnityShaderCompilerExtCompilerPlatform
     kUnityShaderCompilerExtCompPlatformPS5NGGC,
     kUnityShaderCompilerExtCompPlatformUnused25,
     kUnityShaderCompilerExtCompPlatformWebGPU,
-    kUnityShaderCompilerExtCompPlatformReservedCFE,
+    kUnityShaderCompilerExtCompPlatformSwitch2,
     kUnityShaderCompilerExtCompPlatformCount
 };
 
