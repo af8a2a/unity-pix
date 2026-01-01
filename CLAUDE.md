@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Unity PIX is a Windows-only integration plugin that enables GPU captures from the Unity Editor using Microsoft's PIX on Windows tool. It requires Windows 10+ and DirectX 12.
+Unity PIX is a Windows-only integration plugin that enables GPU captures from the Unity Editor using Microsoft's PIX on Windows tool. It requires Windows 10+ and DirectX 12. Uses PIX version 2505.30-preview.
 
 ## Build Commands
 
@@ -22,7 +22,7 @@ The built DLL is automatically copied to `Packages/com.deltation.unity-pix/Plugi
 
 ### Unity Package
 
-The package is located at `Packages/com.deltation.unity-pix/` and requires Unity 2021.3+. It's editor-only code in the `DELTation.UnityPix.Editor` namespace.
+The package is located at `Packages/com.deltation.unity-pix/` and requires Unity 6.4+. It's editor-only code in the `DELTation.UnityPix.Editor` namespace.
 
 ## Architecture
 

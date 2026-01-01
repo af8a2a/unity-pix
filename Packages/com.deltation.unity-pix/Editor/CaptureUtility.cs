@@ -62,7 +62,13 @@ namespace DELTation.UnityPix.Editor
 
                 await captureTarget.RenderAsync();
 
+                // Create fence after rendering to ensure it captures all GPU work
+                // For HDRP, this is critical as it uses async compute and multiple command queues
                 _pendingCaptureFence = Graphics.CreateGraphicsFence(GraphicsFenceType.AsyncQueueSynchronisation, SynchronisationStageFlags.AllGPUOperations);
+                
+                // Force GPU flush for HDRP compatibility
+                // HDRP uses complex rendering pipelines that may need explicit synchronization
+                Graphics.WaitOnAsyncGraphicsFence(_pendingCaptureFence);
 
                 EditorApplication.update += WaitForRenderFinish;
             }
@@ -99,6 +105,10 @@ namespace DELTation.UnityPix.Editor
                 {
                     return;
                 }
+
+                // Additional delay to ensure capture file is fully written, especially important for HDRP
+                // which may have more complex rendering with async compute
+                await Task.Delay(100);
 
                 try
                 {
