@@ -38,7 +38,7 @@ namespace
         LPWSTR programFilesPath = nullptr;
         SHGetKnownFolderPath(FOLDERID_ProgramFiles, KF_FLAG_DEFAULT, nullptr, &programFilesPath);
 
-        std::wstring pixSearchPath = programFilesPath + std::wstring(L"\\Microsoft PIX\\*");
+        std::wstring pixSearchPath = programFilesPath + std::wstring(L"\\Microsoft PIX Preview\\*");
 
         WIN32_FIND_DATAW findData;
         bool             foundPixInstallation = false;
@@ -71,12 +71,12 @@ namespace
             return std::nullopt;
         }
 
-        wchar_t output[MAX_PATH];
-        StringCchCopyW(output, pixSearchPath.length(), pixSearchPath.data());
-        StringCchCatW(output, MAX_PATH, &newestVersionFound[0]);
-        StringCchCatW(output, MAX_PATH, L"\\WinPixGpuCapturer.dll");
+        // Build the full path: Program Files\Microsoft PIX Preview\{version}\WinPixGpuCapturer.dll
+        std::wstring basePath = std::wstring(programFilesPath) + L"\\Microsoft PIX Preview\\";
+        std::wstring fullPath = basePath + newestVersionFound + L"\\WinPixGpuCapturer.dll";
 
-        return &output[0];
+        
+        return fullPath;
     }
 } // namespace
 

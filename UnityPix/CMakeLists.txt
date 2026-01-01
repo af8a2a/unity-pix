@@ -27,6 +27,12 @@ set_target_properties(UnityPix PROPERTIES
         CXX_EXTENSIONS OFF
         COMPILE_WARNING_AS_ERROR ON
 )
+## ADD MSVC SPEC /WX- OPTION
+if (MSVC)
+    target_compile_options(UnityPix PRIVATE /WX-)
+endif ()
+
+        
 
 target_compile_definitions(UnityPix PRIVATE
         USE_PIX
